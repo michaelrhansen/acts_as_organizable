@@ -5,6 +5,7 @@ path = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH << path unless $LOAD_PATH.include?(path)
 require 'acts_as_organizable/tag'
 require 'acts_as_organizable/tagging'
+require 'acts_as_organizable/core_ext/string'
 
 module ActsAsOrganizable
   class TagList < Array
@@ -17,13 +18,7 @@ module ActsAsOrganizable
     end
     
     def to_s
-      join(@@delimiter)
-    end
-  end
-  
-  class String
-    def clean_up_tags
-      gsub(/,/, '').gsub(' ', ', ')
+      join(@@delimiter + " ")
     end
   end
 
