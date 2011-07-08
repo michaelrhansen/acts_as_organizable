@@ -72,10 +72,13 @@ module ActsAsOrganizable
       end
       
       def save_with_tags(tag_owner = nil)
-        self.save # save the parent object first
-        tag_kinds.each do |tag_kind|
-          delete_unused_tags(tag_kind)
-          create_taggings(tag_kind, tag_owner)
+        if self.save # save the parent object first
+          tag_kinds.each do |tag_kind|
+            delete_unused_tags(tag_kind)
+            create_taggings(tag_kind, tag_owner)
+          end
+        else
+          return false
         end
       end
 
